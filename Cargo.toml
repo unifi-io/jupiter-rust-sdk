@@ -1,0 +1,29 @@
+[package]
+name = "jupiter-sdk"
+version = "0.1.5"
+edition = "2021"
+repository = "https://github.com/unifi-io/jupiter-rust-sdk"
+
+
+
+[lib]
+name = "jupiter_sdk"
+path = "src/lib.rs"
+
+[features]
+default = ["rustls-tls"]
+rustls-tls = ["reqwest/rustls-tls"]
+native-tls = ["reqwest/native-tls"]
+
+[dependencies]
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
+thiserror = "2.0.16"
+serde_with = { version = "3.14.1", features = ["macros"] }
+serde_path_to_error = "0.1.20"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
