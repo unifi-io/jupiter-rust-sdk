@@ -1,10 +1,10 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-mod error;
-mod models;
-mod client;
-mod ultra;
-mod types;
+pub mod error;
+pub mod models;
+pub mod client;
+pub mod ultra;
+pub mod types;
 
 pub use error::*;
 pub use models::*;

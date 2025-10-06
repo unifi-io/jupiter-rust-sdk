@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{tx::ExecuteRes, JupiterClient, JupiterError};
+use crate::{models::ultra::GetHoldingsRes, tx::ExecuteRes, JupiterClient, JupiterError};
 
 
 
@@ -31,6 +31,15 @@ impl UltraClient {
     ) -> Result<ExecuteRes, JupiterError> {
         let path = "/ultra/v1/execute";
         self.0.post(&path, req).await
+    }
+
+
+    pub async fn get_holdings(
+        &self,
+        address: String,
+    ) -> Result<GetHoldingsRes, JupiterError> {
+        let path = format!("/ultra/v1/holdings/{}", address);
+        self.0.get_json(&path).await
     }
 }
 

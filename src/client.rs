@@ -150,13 +150,13 @@ impl JupiterClient {
         }
     }
 
-    async fn get_json<T: DeserializeOwned>(&self, path: &str) -> Result<T, JupiterError> {
+    pub(super) async fn get_json<T: DeserializeOwned>(&self, path: &str) -> Result<T, JupiterError> {
         let url = self.build_url(path)?;
         let resp = self.client.get(url).send().await?;
         Self::parse_json(resp).await
     }
 
-    async fn get_json_with_query<T, Q>(&self, path: &str, query: &Q) -> Result<T, JupiterError>
+    pub(super) async fn get_json_with_query<T, Q>(&self, path: &str, query: &Q) -> Result<T, JupiterError>
     where
         T: DeserializeOwned,
         Q: Serialize,
