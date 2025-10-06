@@ -1,4 +1,5 @@
-use std::{collections::HashMap, time::Duration};
+use std::time::Duration;
+use serde::Deserialize;
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::models::{
@@ -81,6 +82,7 @@ impl JupiterConfigBuilder {
     }
 }
 
+#[derive(Clone)]
 pub struct JupiterClient {
     config: JupiterConfig,
     client: Client,
@@ -161,6 +163,23 @@ impl JupiterClient {
     {
         let url = self.build_url(path)?;
         let resp = self.client.get(url).query(query).send().await?;
+        Self::parse_json(resp).await
+    }
+
+    #[allow(dead_code)]
+    pub async fn post<T: for<'a> Deserialize<'a>, B: Serialize>(
+        &self,
+        path: &str,
+        body: &B,
+    ) -> Result<T, JupiterError> {
+        let url = self.build_url(path)?;
+
+        let resp = self.client.post(url)
+            .json(body)
+            .send()
+            .await
+            .map_err(JupiterError::from)?;
+
         Self::parse_json(resp).await
     }
 

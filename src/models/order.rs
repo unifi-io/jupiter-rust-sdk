@@ -55,7 +55,7 @@ pub struct RoutePlan {
 #[serde(rename_all = "camelCase")]
 #[serde_as]
 pub struct PlatformFee {
-    pub amount: String,
+    pub amount: Option<String>,
     pub fee_bps: U128,
 }
 
