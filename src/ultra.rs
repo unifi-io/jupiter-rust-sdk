@@ -34,6 +34,9 @@ impl UltraClient {
     }
 
 
+    /**
+     * Request for detailed token holdings of an account including token account information
+     */
     pub async fn get_holdings(
         &self,
         address: String,
@@ -85,5 +88,14 @@ mod tests {
                 panic!("execute error: {}", e);
             }
         }
+    }
+
+    #[tokio::test]
+    async fn test_get_holdings() {
+        let client = JupiterClient::new(crate::JupiterConfig::default()).unwrap();
+        let ultra_client = UltraClient::new(client);
+        let res = ultra_client.get_holdings("ANAUcDCU3Jfao3mtxBdttjEH7F3Ja7SyjGBKUa9Cruc5".to_string()).await.unwrap();
+        assert_eq!(res.error_code, None);
+        println!("holdings: {}", serde_json::to_string_pretty(&res).unwrap());
     }
 }
