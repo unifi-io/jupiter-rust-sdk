@@ -134,7 +134,7 @@ pub struct MintInstructionsReq {
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[serde_as]
-pub struct MintInstructionsRes {
+pub struct Instruction {
     pub program_id: Vec<String>,
     pub accounts: Vec<AccountInfo>,
     pub data: String,

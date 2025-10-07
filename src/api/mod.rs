@@ -1,4 +1,5 @@
 mod ultra;
+mod swap;
 mod lend;
 mod trigger;
 mod recurring;
@@ -9,6 +10,7 @@ mod studio;
 
 pub use self::{
     ultra::*,
+    swap::*,
     lend::*,
     trigger::*,
     recurring::*,

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_with::serde_as;
 
-use crate::types::{F64, U128};
+use crate::{swap::{PlatformFee, RoutePlan}, types::{F64, U128}};
 
 
 
@@ -25,40 +25,6 @@ pub struct OrderReq {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub exclude_dexes: Option<Vec<String>>,
 }
-
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[serde_as]
-pub struct SwapInfo {
-    pub amm_key: String,
-    pub label: String,
-    pub input_mint: String,
-    pub output_mint: String,
-    pub in_amount: String,
-    pub out_amount: String,
-    pub fee_amount: String,
-    pub fee_mint: String,    
-}
-
-
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[serde_as]
-
-pub struct RoutePlan {
-    pub swap_info: SwapInfo,
-    pub percent: U128,
-    pub bps: U128,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[serde_as]
-pub struct PlatformFee {
-    pub amount: Option<String>,
-    pub fee_bps: U128,
-}
-
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]

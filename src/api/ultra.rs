@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{models::ultra::GetHoldingsRes, tx::ExecuteRes, ultra::order::{OrderReq, OrderRes}, JupiterClient, JupiterError};
+use crate::{common::ExecuteRes, models::ultra::GetHoldingsRes, ultra::order::{OrderReq, OrderRes}, JupiterClient, JupiterError};
 
 
 

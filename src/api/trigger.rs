@@ -1,6 +1,5 @@
 use crate::{
-    api::TransactionRequest, 
-    trigger::{
+    api::TransactionRequest, common::ExecuteRes, trigger::{
         CancelOrderReq, 
         CancelOrderRes, 
         CancelOrdersReq, 
@@ -9,10 +8,7 @@ use crate::{
         CreateOrderRes, 
         GetTriggerOrdersReq, 
         GetTriggerOrdersRes,
-    }, 
-    tx::ExecuteRes, 
-    JupiterClient, 
-    JupiterError,
+    }, JupiterClient, JupiterError
 };
 
 
