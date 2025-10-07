@@ -3,3 +3,4 @@ pub mod ultra;
 pub mod lend;
 pub mod trigger;
 pub mod recurring;
+pub mod token;
