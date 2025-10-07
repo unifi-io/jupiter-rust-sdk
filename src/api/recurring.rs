@@ -1,4 +1,4 @@
-use crate::{recurring::{CreateRecurringOrderReq, CreateRecurringOrderRes}, JupiterClient, JupiterError};
+use crate::{api::TransactionRequest, recurring::{CreateRecurringOrderReq, CreateRecurringOrderRes}, tx::ExecuteRes, JupiterClient, JupiterError};
 
 
 
@@ -21,5 +21,14 @@ impl<'a> RecurringService<'a> {
     ) -> Result<CreateRecurringOrderRes, JupiterError> {
         let path = "/recurring/v1/createOrder";
         self.client.get_json_with_query(&path, req).await
+    }
+
+
+    pub async fn execute(
+        &self,
+        req: &TransactionRequest,
+    ) -> Result<ExecuteRes, JupiterError> {
+        let path = "/recurring/v1/execute";
+        self.client.post(&path, req).await
     }
 }

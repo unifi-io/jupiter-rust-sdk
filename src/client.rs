@@ -1,11 +1,6 @@
 use std::time::Duration;
 use serde::Deserialize;
 use serde::{de::DeserializeOwned, Serialize};
-
-use crate::models::{
-    order::OrderReq,
-    order::OrderRes,
-};
 use crate::JupiterError;
 use reqwest::{Client, Url};
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
@@ -184,35 +179,5 @@ impl JupiterClient {
             .map_err(JupiterError::from)?;
 
         Self::parse_json(resp).await
-    }
-
-    // ---------- Public APIs ----------
-
-    pub async fn get_order(&self, req: &OrderReq) -> Result<OrderRes, JupiterError> {
-        let path = "/ultra/v1/order";
-        self.get_json_with_query(&path, req,).await
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[tokio::test]
-    async fn test_get_order() {
-        let client = JupiterClient::new(JupiterConfig::default()).unwrap();
-        let res = client.get_order(&OrderReq {
-            input_mint: "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN".to_string(),
-            output_mint: "So11111111111111111111111111111111111111112".to_string(),
-            amount: "500".to_string(),
-            taker: "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM".to_string(),
-            referral_account: None,
-            referral_fee: None,
-            exclude_dexes: None,
-            exclude_routers: None,
-        }).await.unwrap();
-
-        assert_eq!(res.error_code, None);
-        println!("order: {}", serde_json::to_string_pretty(&res).unwrap());
     }
 }
