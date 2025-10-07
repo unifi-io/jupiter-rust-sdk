@@ -3,6 +3,8 @@ mod lend;
 mod trigger;
 mod recurring;
 mod token;
+mod price;
+mod send;
 
 pub use self::{
     ultra::*,
@@ -10,4 +12,6 @@ pub use self::{
     trigger::*,
     recurring::*,
     token::*,
+    price::*,
+    send::*,
 };
