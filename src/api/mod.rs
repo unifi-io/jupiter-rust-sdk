@@ -5,6 +5,7 @@ mod recurring;
 mod token;
 mod price;
 mod send;
+mod studio;
 
 pub use self::{
     ultra::*,
@@ -14,4 +15,5 @@ pub use self::{
     token::*,
     price::*,
     send::*,
+    studio::*,
 };

@@ -6,3 +6,4 @@ pub mod recurring;
 pub mod token;
 pub mod price;
 pub mod send;
+pub mod studio;
