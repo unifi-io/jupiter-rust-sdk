@@ -17,12 +17,14 @@ pub struct TransactionRequest {
 
 
 #[derive(Clone)]
-pub struct UltraClient(JupiterClient);
+pub struct UltraService<'a>{
+    client: &'a JupiterClient,
+}
 
 // #[async_trait]
-impl UltraClient {
-    pub fn new(client: JupiterClient) -> Self {
-        Self(client)
+impl<'a> UltraService<'a> {
+    pub fn new(client: &'a JupiterClient) -> Self {
+        Self { client }
     }
 
     pub async fn execute(
@@ -30,7 +32,7 @@ impl UltraClient {
         req: &TransactionRequest,
     ) -> Result<ExecuteRes, JupiterError> {
         let path = "/ultra/v1/execute";
-        self.0.post(&path, req).await
+        self.client.post(&path, req).await
     }
 
 
@@ -42,7 +44,7 @@ impl UltraClient {
         address: String,
     ) -> Result<GetHoldingsRes, JupiterError> {
         let path = format!("/ultra/v1/holdings/{}", address);
-        self.0.get_json(&path).await
+        self.client.get_json(&path).await
     }
 }
 
@@ -72,7 +74,7 @@ mod tests {
         assert_eq!(res.error_code, None);
         println!("order: {}", serde_json::to_string_pretty(&res).unwrap());
 
-        let ultra_client = UltraClient::new(client);
+        let ultra_client = UltraService::new(&client);
 
         let res = ultra_client.execute(&TransactionRequest {
             signed_transaction: res.transaction.unwrap(),
@@ -93,7 +95,7 @@ mod tests {
     #[tokio::test]
     async fn test_get_holdings() {
         let client = JupiterClient::new(crate::JupiterConfig::default()).unwrap();
-        let ultra_client = UltraClient::new(client);
+        let ultra_client = UltraService::new(&client);
         let res = ultra_client.get_holdings("ANAUcDCU3Jfao3mtxBdttjEH7F3Ja7SyjGBKUa9Cruc5".to_string()).await.unwrap();
         assert_eq!(res.error_code, None);
         println!("holdings: {}", serde_json::to_string_pretty(&res).unwrap());

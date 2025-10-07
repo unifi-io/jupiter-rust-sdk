@@ -8,6 +8,9 @@ use serde_with::serde_as;
 #[serde(rename_all = "camelCase")]
 #[serde_as]
 pub struct ExecuteRes {
+    pub code: i32,
+    pub signature: String,
+    pub status: String,
     pub error_code: Option<i32>,
     pub error_message: Option<String>,
 }

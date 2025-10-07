@@ -105,7 +105,10 @@ impl JupiterClient {
             .build()
             .map_err(|e| JupiterError::Network(format!("failed to build http client: {e}")))?;
 
-        Ok(Self { config, client })
+        Ok(Self { 
+            config, 
+            client,
+        })
     }
 
     #[inline]
